@@ -19,7 +19,7 @@ export class WhitelistGuard implements CanActivate {
     const ctx = GqlExecutionContext.create(context).getContext();
     const req: Request = ctx.req;
     console.log(req.rawHeaders);
-    console.log(req?.ip);
+    console.log(req.cookies);
     if (list) {
       for (const env of list) {
         return whitelistMap[env].some((pattern) => {
