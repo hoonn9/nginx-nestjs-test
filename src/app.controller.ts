@@ -1,6 +1,7 @@
 import { Controller, Get, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AppService } from './app.service';
+import { Whitelist } from './guards/whitelist.decorator';
 
 @Controller()
 export class AppController {
@@ -17,8 +18,13 @@ export class AppController {
     res.cookie('jwt', 'jwttestvalue', {
       httpOnly: true,
       secure: true,
-      domain: '*.elb.amazonaws.com',
     });
-    // return this.appService.getHello();
+    return this.appService.getHello();
+  }
+
+  @Whitelist('Specific')
+  @Get('user')
+  getUser() {
+    return 'user';
   }
 }
